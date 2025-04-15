@@ -19,10 +19,12 @@ public interface TokenRepository extends JpaRepository<Token, Integer> {
             "ON CONFLICT (user_id) " +
             "DO UPDATE SET token_id = EXCLUDED.token_id, expired_time = EXCLUDED.expired_time",
             nativeQuery = true)
-    void insertOrUpdateToken(@Param("tokenId") String tokenId,
+    void InsertOrUpdateToken(@Param("tokenId") String tokenId,
                              @Param("userId") String userId,
                              @Param("expiredTime") OffsetDateTime expired_time);
 
-    // Add finder method for user
-    Optional<Token> findByUserId(String userId);
+    @Query("SELECT t FROM Token t WHERE " +
+            "t.userId = :#{#token.userId} AND " +
+            "t.token = :#{#token.token}")
+    Optional<Token> ValidateToken(@Param("userId") String userId, @Param("token") String token);
 }

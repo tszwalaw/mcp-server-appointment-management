@@ -17,6 +17,6 @@ public class UserHelperImpl implements UserHelper {
 
     @Override
     public Optional<User> VerifyUser(VerifyUserDTO verifyUserDTO) {
-        return userRepository.findByVerifyUserDTO(verifyUserDTO);
+        return userRepository.FindByVerifyUserDTO(verifyUserDTO);
     }
 }

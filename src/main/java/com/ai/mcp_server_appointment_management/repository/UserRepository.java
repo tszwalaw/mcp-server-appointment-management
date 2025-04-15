@@ -11,8 +11,9 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("SELECT u FROM User u WHERE " +
+            "u.id = :#{#dto.id} AND " +
             "u.name = :#{#dto.name} AND " +
             "u.email = :#{#dto.email} AND " +
             "u.phoneNumber = :#{#dto.phoneNumber}")
-    Optional<User> findByVerifyUserDTO(@Param("dto") VerifyUserDTO dto);
+    Optional<User> FindByVerifyUserDTO(@Param("dto") VerifyUserDTO dto);
 }
