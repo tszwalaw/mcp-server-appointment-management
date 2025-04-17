@@ -24,7 +24,7 @@ public interface TokenRepository extends JpaRepository<Token, Integer> {
                              @Param("expiredTime") OffsetDateTime expired_time);
 
     @Query("SELECT t FROM Token t WHERE " +
-            "t.userId = :#{#token.userId} AND " +
-            "t.token = :#{#token.token}")
+            "t.userId = :userId AND " +
+            "t.token = :token")
     Optional<Token> ValidateToken(@Param("userId") String userId, @Param("token") String token);
 }

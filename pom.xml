@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.ai</groupId>
 	<artifactId>mcp-server-appointment-management</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>mcp-server-appointment-management</name>
 	<description>This project is a Java-based MCP (Model-Context-Protocol) server designed to manage appointment data from the database.It provides a modular framework that exposes internal tools for data access and manipulation, with built-in support for AI-driven features</description>
 	<url/>

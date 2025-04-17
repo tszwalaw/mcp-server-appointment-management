@@ -9,6 +9,8 @@ import com.ai.mcp_server_appointment_management.helper.impl.TokenHelperImpl;
 import com.ai.mcp_server_appointment_management.helper.impl.UserHelperImpl;
 import com.ai.mcp_server_appointment_management.service.AppointmentService;
 import lombok.AllArgsConstructor;
+import org.springframework.ai.tool.annotation.Tool;
+import org.springframework.ai.tool.annotation.ToolParam;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -21,7 +23,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     private final TokenHelperImpl tokenHelper;
     private final AppointmentHelperImpl appointmentHelper;
 
-
+    @Tool(name = "VerifyAndGetAccessToken", description = "Verify user information and return access token valid for 24 hours which used for managing appointment")
     @Override
     public String VerifyAndGetAccessToken(VerifyUserDTO verifyUserDTO) {
         Optional<User> user = userHelper.VerifyUser(verifyUserDTO);
@@ -32,9 +34,10 @@ public class AppointmentServiceImpl implements AppointmentService {
         return tokenHelper.GenerateNewToken(userId);
     }
 
+    @Tool(name = "CreateNewAppointment", description = "Create new appointment for user by using the access token")
     @Override
     public String CreateNewAppointment(BookAppointmentDTO bookAppointmentDTO) {
-        if(!tokenHelper.ValidateToken(bookAppointmentDTO.getUserId(), bookAppointmentDTO.getToken())) {
+        if(bookAppointmentDTO == null || !tokenHelper.ValidateToken(bookAppointmentDTO.getUserId(), bookAppointmentDTO.getToken())) {
             return MessageConstant.ERROR_INVALID_TOKEN;
         }
         return appointmentHelper.BookAppointment(bookAppointmentDTO);
