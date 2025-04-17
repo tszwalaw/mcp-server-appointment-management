@@ -18,7 +18,7 @@ public class AppointmentHelperImpl implements AppointmentHelper {
     public String BookAppointment(BookAppointmentDTO bookAppointmentDTO) {
         appointmentRepository.CreateNewAppointment(bookAppointmentDTO.getUserId(),
                 UUID.randomUUID().toString(),
-                bookAppointmentDTO.getAppointmentTime(),
+                bookAppointmentDTO.getAppointmentDateTime(),
                 OffsetDateTime.now());
         return "Book Appointment succeed.";
     }
